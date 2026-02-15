@@ -1,5 +1,5 @@
 {
-    "name": "pbxg33k/php-utorrent",
+    "name": "shubhank008/php-utorrent",
     "type": "library",
     "require": {
         "psr/cache": "^1.0",
