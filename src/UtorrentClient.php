@@ -117,7 +117,7 @@ class UtorrentClient
         $response = $this->doRequest($this->constructRequest(null,['list' => 1]));
         $listResponse = (new ListResponse())->setCache($this->cache)->fromHtml($response->getBody()->getContents());
         return $listResponse;
-    }
+    } 
 
     public function getTorrent(string $hash)
     {
@@ -153,6 +153,23 @@ class UtorrentClient
         return (new SettingsResponse())->fromHtml($response->getBody()->getContents());
     }
 
+    /**
+     * Add a torrent by URL or magnet link.
+     *
+     * uTorrent API:
+     * /gui/?action=add-url&s=[TORRENT URL]
+     *
+     * @param string $url
+     * @return ResponseInterface
+     */
+    public function addUrl(string $url): ResponseInterface
+    {
+        return $this->doRequest($this->constructRequest(null, [
+            'action' => 'add-url',
+            's' => rawurlencode($url)
+        ]));
+    }
+
 //    WIP
 
 //    public function setSettings()
@@ -186,6 +203,7 @@ class UtorrentClient
     protected function doRequest($request) : ResponseInterface
     {
         $request = $this->addTokenToRequest($request);
+        //print_r($request); die();
 
         return $this->getClient()->send($request, [
             'auth' => [$this->username, $this->password]
@@ -225,8 +243,8 @@ class UtorrentClient
      * @return Request
      */
     protected function constructRequest($path = null, array $parameters = []) : Request
-    {
-        $scheme = (strpos($path, 'http') !== 0) ? 'http://' : '';
+    {        
+        $scheme = (strpos($path ?? "", 'http') !== 0) ? 'http://' : '';
         $uri = "{$scheme}{$this->host}:{$this->port}{$this->path}{$path}";
 
         $requestUri = (new Uri(  $uri))->withQuery(implode('&', array_map(

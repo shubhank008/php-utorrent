@@ -89,6 +89,18 @@ class Torrent extends BaseModel
      * @var int
      */
     protected $remaining;
+    /**
+     * @var int
+     */
+    protected $added;
+    /**
+     * @var int
+     */
+    protected $completed;
+    /**
+     * @var string
+     */
+    protected $sourceFile;
 
     protected $map = [
         'hash' => 0,
@@ -110,6 +122,9 @@ class Torrent extends BaseModel
         'availability' => 16,
         'queueOrder' => 17,
         'remaining' => 18,
+        'sourceFile' => 19,
+        'added' => 23,
+        'completed' => 24
     ];
 
     public function refreshCache($newData, array $filter = null)
@@ -137,7 +152,10 @@ class Torrent extends BaseModel
                 'peersInSwarm',
                 'seedsConnected',
                 'seedsInSwarm',
-                'remaining'
+                'remaining',
+                'added',
+                'completed',
+                'sourceFile'
             ]);
         }
 
@@ -490,5 +508,57 @@ class Torrent extends BaseModel
         return $this;
     }
 
+    /**
+     * @return Epoch Timestamp of when the torrent was added
+     */
+    public function getAdded(): int
+    {
+        return $this->added;
+    }
 
+    /**
+     * @param int $added
+     * @return Epoch Timestamp of when the torrent was added
+     */
+    public function setAdded(int $added): Torrent
+    {
+        $this->added = $added;
+        return $this;
+    }
+
+    /**
+     * @return Epoch Timestamp of when the torrent was completed
+     */
+    public function getCompleted(): int
+    {
+        return $this->completed;
+    }
+
+    /**
+     * @param int $completed
+     * @return Epoch Timestamp of when the torrent was completed
+     */
+    public function setCompleted(int $completed): Torrent
+    {
+        $this->completed = $completed;
+        return $this;
+    }
+
+    /**
+     * @return string SoureFile path
+     */
+    public function getSourceFile(): string
+    {
+        return $this->sourceFile;
+    }
+
+    /**
+     * @param string $sourceFile
+     * @return Torrent
+     */
+    public function setSourceFile(string $sourceFile): Torrent
+    {
+        $this->sourceFile = $sourceFile;
+        return $this;
+    }
 }
