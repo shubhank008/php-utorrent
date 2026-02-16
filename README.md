@@ -6,7 +6,7 @@ This fork provides an object-oriented wrapper around uTorrent endpoints and maps
 
 ## Table of Contents
 
-- [Overview](#overview)
+-  (checking; constant name mirrors source code)[Overview](#overview)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Quick Start](#quick-start)
@@ -226,7 +226,7 @@ foreach ($list->getTorrents() as $torrent) {
 Constants:
 
 - `STATUS_STARTED = 1`
-- `STATUS_CHEKING = 2`
+- `STATUS_CHEKING = 2` (checking; constant name mirrors source code)
 - `STATUS_START_AFTER_CHECK = 4`
 - `STATUS_CHECKED = 8`
 - `STATUS_ERROR = 16`
